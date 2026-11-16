@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuna Güvenlik - Siber Güvenlik ve Test Platformu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cyber-grid-bg"></div>
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
+
+    <div class="container">
+        <!-- Üst Başlık & Durum Paneli -->
+        <header class="hud-header">
+            <div class="logo-area">
+                <div class="shield-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M12 8v4"/>
+                        <path d="M12 16h.01"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="glitch" data-text="TUNA GÜVENLİK">TUNA GÜVENLİK</h1>
+                    <p class="subtitle">SİSTEM, AĞ & OYUN GÜVENLİK TEST KONSOLU v3.4</p>
+                </div>
+            </div>
+
+            <div class="system-status-badge">
+                <span class="status-pulse"></span>
+                <span id="systemLiveText">SİSTEM ÇEVRİMİÇİ</span>
+                <button id="soundToggleBtn" class="icon-btn" title="Ses Aç/Kapat">🔊</button>
+            </div>
+        </header>
+
+        <!-- Ana Test Kontrol Kartı -->
+        <main>
+            <section class="test-launcher-card">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <div class="target-select-row">
+                        <div class="target-chip active" data-target="all">
+                            <span class="chip-dot"></span> TÜM SİSTEMLER
+                        </div>
+                        <div class="target-chip" data-target="network">
+                            <span class="chip-dot"></span> AĞ GÜVENLİĞİ
+                        </div>
+                        <div class="target-chip" data-target="game">
+                            <span class="chip-dot"></span> OYUN & ANTİ-CHEAT
+                        </div>
+                        <div class="target-chip" data-target="app">
+                            <span class="chip-dot"></span> UYGULAMA GÜVENLİĞİ
+                        </div>
+                    </div>
+
+                    <div class="action-banner">
+                        <div class="action-info">
+                            <h2>Sistem Bütünlük ve Güvenlik Taraması</h2>
+                            <p>Port filtreleme, bellek enjeksiyonu, sızıntı testleri ve şifreleme bütünlüğü anlık simüle edilir.</p>
+                        </div>
+                        <button id="startScanBtn" class="cyber-button">
+                            <span class="btn-text">GÜVENLİĞİ TEST ET</span>
+                            <span class="btn-glitch"></span>
+                            <span class="btn-icon">⚡</span>
+                        </button>
+                    </div>
+
+                    <!-- İlerleme Çubuğu (Tarama Sırasında Aktif) -->
+                    <div id="progressContainer" class="progress-container hidden">
+                        <div class="progress-labels">
+                            <span id="currentPhaseText">Güvenlik modülleri yükleniyor...</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div id="progressBar" class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Konsol / Rastgele Kod Akış Terminali -->
+            <section class="terminal-card">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-title">tuna-sec-terminal :: root@sec-node-404</div>
+                    <div class="terminal-actions">
+                        <span id="lineCounter">0 SATIR İŞLENDİ</span>
+                        <button id="clearLogsBtn" class="text-btn">Temizle</button>
+                    </div>
+                </div>
+                <div id="terminalBody" class="terminal-body">
+                    <div class="term-line info-line">[BİLGİ] Tuna Güvenlik Analizörü hazır. Testi başlatmak için yukarıdaki "GÜVENLİĞİ TEST ET" düğmesine tıklayın.</div>
+                    <div class="term-line muted-line">// Ağ, oyun ve uygulama güvenlik katmanları dinleniyor...</div>
+                </div>
+            </section>
+
+            <!-- Sonuç Raporu Bölümü (Kodlar bitince görünür) -->
+            <section id="resultSection" class="result-section hidden">
+                <div class="result-banner" id="overallBanner">
+                    <div class="score-circle-wrap">
+                        <svg class="score-ring" viewBox="0 0 120 120">
+                            <circle class="ring-bg" cx="60" cy="60" r="50"></circle>
+                            <circle id="scoreRingProgress" class="ring-progress" cx="60" cy="60" r="50"></circle>
+                        </svg>
+                        <div class="score-number-box">
+                            <span id="overallScore">0</span>
+                            <small>/100</small>
+                        </div>
+                    </div>
+                    <div class="score-meta">
+                        <div class="badge-tag" id="overallBadge">DEĞERLENDİRME TAMAMLANDI</div>
+                        <h3 id="overallTitle">Sistem Güvenlik Analizi Raporu</h3>
+                        <p id="overallDesc">Test edilen parametreler aşağıda listelenmiştir. Her kategori için özel güvenlik skorları ve durum analizleri üretildi.</p>
+                    </div>
+                    <div class="quick-retest">
+                        <button id="retestBtn" class="cyber-button secondary">
+                            <span>YENİDEN TEST ET</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3 Ana Kategori Kartları: Ağ, Oyun, Uygulama -->
+                <div class="cards-grid">
+                    <!-- 1. AĞ GÜVENLİĞİ -->
+                    <div class="result-card" id="cardNetwork">
+                        <div class="card-top">
+                            <div class="category-icon net">🌐</div>
+                            <div>
+                                <h4>AĞ GÜVENLİĞİ</h4>
+                                <span class="card-status-pill" id="netStatusPill">Bekleniyor</span>
+                            </div>
+                        </div>
+                        <div class="stat-score-row">
+                            <span class="stat-score" id="netScore">--%</span>
+                            <span class="stat-label">Güvenlik Düzeyi</span>
+                        </div>
+                        <ul class="detail-list" id="netDetails">
+                            <li><span class="detail-key">Güvenlik Duvarı (Firewall):</span> <span class="detail-val" id="netFw">--</span></li>
+                            <li><span class="detail-key">Port Koruması:</span> <span class="detail-val" id="netPort">--</span></li>
+                            <li><span class="detail-key">DNS Sızıntı Testi:</span> <span class="detail-val" id="netDns">--</span></li>
+                            <li><span class="detail-key">DDoS Filtreleme:</span> <span class="detail-val" id="netDdos">--</span></li>
+                        </ul>
+                        <div class="advice-box" id="netAdvice">--</div>
+                    </div>
+
+                    <!-- 2. OYUN & ANTİ-CHEAT GÜVENLİĞİ -->
+                    <div class="result-card" id="cardGame">
+                        <div class="card-top">
+                            <div class="category-icon game">🎮</div>
+                            <div>
+                                <h4>OYUN GÜVENLİĞİ</h4>
+                                <span class="card-status-pill" id="gameStatusPill">Bekleniyor</span>
+                            </div>
+                        </div>
+                        <div class="stat-score-row">
+                            <span class="stat-score" id="gameScore">--%</span>
+                            <span class="stat-label">Bütünlük Skoru</span>
+                        </div>
+                        <ul class="detail-list" id="gameDetails">
+                            <li><span class="detail-key">Bellek Enjeksiyonu (DLL):</span> <span class="detail-val" id="gameDll">--</span></li>
+                            <li><span class="detail-key">Anti-Cheat Koruma Seviyesi:</span> <span class="detail-val" id="gameAc">--</span></li>
+                            <li><span class="detail-key">Hile & Makro Algılama:</span> <span class="detail-val" id="gameMacro">--</span></li>
+                            <li><span class="detail-key">Paket Manipülasyonu:</span> <span class="detail-val" id="gamePacket">--</span></li>
+                        </ul>
+                        <div class="advice-box" id="gameAdvice">--</div>
+                    </div>
+
+                    <!-- 3. UYGULAMA GÜVENLİĞİ -->
+                    <div class="result-card" id="cardApp">
+                        <div class="card-top">
+                            <div class="category-icon app">📱</div>
+                            <div>
+                                <h4>UYGULAMA GÜVENLİĞİ</h4>
+                                <span class="card-status-pill" id="appStatusPill">Bekleniyor</span>
+                            </div>
+                        </div>
+                        <div class="stat-score-row">
+                            <span class="stat-score" id="appScore">--%</span>
+                            <span class="stat-label">Koruma Skoru</span>
+                        </div>
+                        <ul class="detail-list" id="appDetails">
+                            <li><span class="detail-key">Veri Şifreleme (AES-256):</span> <span class="detail-val" id="appEncrypt">--</span></li>
+                            <li><span class="detail-key">SQL / XSS Koruması:</span> <span class="detail-val" id="appInjection">--</span></li>
+                            <li><span class="detail-key">Tersine Mühendislik Direnci:</span> <span class="detail-val" id="appReverse">--</span></li>
+                            <li><span class="detail-key">Yetkilendirme (Token):</span> <span class="detail-val" id="appAuth">--</span></li>
+                        </ul>
+                        <div class="advice-box" id="appAdvice">--</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="hud-footer">
+            <div>Tuna Güvenlik Teknolojileri &copy; 2026 - Tüm Hakları Saklıdır.</div>
+            <div class="tech-stack-indicator">SEC-CORE ENGINE ACTIVE // AES-GCM-256</div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
